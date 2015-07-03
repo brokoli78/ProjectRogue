@@ -1,0 +1,47 @@
+//This file contains the keybindings for the game.
+//command [, defaultBindingHelp = key] : key[, modifiers = None]
+//The keys are values from the Microsoft.Xna.Framework.Input.Keys enumeration (https://msdn.microsoft.com/en-us/library/microsoft.xna.framework.input.keys.aspx).
+//(Note: all chars have to be uppercase but are lowercase by default, use the shift modifier for uppercase letters)
+//defaultBindingHelp is a user friendly string used to give the user an idea of the default char that is bound to this, usefull because automatic keyboard layout adaption does not always work
+//modifiers are: Shift, Control, Alt, ShiftControl, ShiftAlt, ControlAlt, ShiftControlAlt, None; "None" can be omitted (see above)
+
+#Main Game
+//general
+enter: Enter
+escape: Escape
+
+accept: Z
+decline: N
+safeAccept: Z, Shift
+safeDecline: N, Shift
+
+//movement
+moveSW: NumPad1
+moveS: NumPad2
+moveSE: NumPad3
+moveW: NumPad4
+moveE: NumPad6
+moveNW: NumPad7
+moveN: NumPad8
+moveNE: NumPad9
+
+goUp, <: None
+goDown, >: None, Shift
+
+wait1: NumPad5
+rest: Escape
+rest, Control + NumPad5: NumPad5, Control
+rest, +: Add
+rest, 5: D5
+
+run: O
+run: Enter
+
+//inventory
+pickUp, g: G
+
+//application
+wizard, &: D6, Shift
+saveAndQuit, Control + q: Q, Control
+commitSuicide, Shift + Control + Alt + q: Q, ShiftControlAlt
+toggleFullscreen, Control + f: F, Control
