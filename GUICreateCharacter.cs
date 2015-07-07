@@ -19,7 +19,7 @@ namespace ProjectRogue
 
         public GUICreateCharacter()
         {
-            content.Add(new GUITextbox("    enter: accept    escape: cancle    generate new name: g",
+            content.Add(new GUITextbox("    enter: accept    escape: cancel    generate new name: g",
                 delegate()
                 {
                     return new Rectangle(0, GameController.mainWindow.Window.ClientBounds.Height - 2 * (int)GraphX.textFontHeight, GameController.mainWindow.Window.ClientBounds.Width, (int)GraphX.textFontHeight); //TODO: beautify
