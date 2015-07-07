@@ -13,13 +13,14 @@ namespace ProjectRogue
 {
     public static class GameController
     {
-        public const string version = "0.13.0 \"Lloyanastio\"";
+        public const string version = "0.14.0 \"Cadamivur\"";
         public const string myMagicHeader = "This is a rogue save file, it will destroy you.";
         public const string separator = ",";
         public const string comment = "//";
-        public const string FileName = @"./save/save.rogue";
+        public const string saveDirectory = @"./save/";
         public const string dictionaryPath = @"./resources/dict.txt";
 
+        public static string FileName;
 
         private static GUI currentgui = null;
 
@@ -48,6 +49,8 @@ namespace ProjectRogue
             get { return saveGame.player; }
             set { saveGame.player = value; }
         }
+
+        public static string playerName;
 
         public static int currentFloor
         {
@@ -224,7 +227,7 @@ namespace ProjectRogue
 
         public static void LoadGame()
         {
-            save = true; //we want to save this if valid
+            save = false; //we want to save this only if load suceeds valid
 
             int position;
             CompressionAlgorithm compressed;
@@ -248,7 +251,7 @@ namespace ProjectRogue
                     headerVersion = headerReader.ReadLine();
                     if (version != headerVersion && !ignoreVersion)
                     {
-                        currentGUI = new GUIYesNo("The save file appears to be an older version (" + headerVersion + ", the current verion is " + version + "). Try loading anyway?",
+                        currentGUI = new GUIYesNo("The save file appears to be an older version (" + headerVersion + ", the current version is " + version + "). Try loading anyway?",
                             NewGame, ignoreVersionLoad);
                         return;
                     }
@@ -308,6 +311,8 @@ namespace ProjectRogue
             DeleteGame();
             GameLog.newMessage("Welcome back, " + player.name + "!");
             GraphX.UpdateVisibleArea(player, map);
+            save = true;
+            playerName = player.name;
         }
 
         private static void ReadData(StreamReader saveFileReader)
@@ -410,9 +415,7 @@ namespace ProjectRogue
             Tile t = dummy[r.Next(dummy.Count)];
             dummy.Remove(t);
 
-            NameGenerator ng = new NameGenerator(NameGenerator.LoadDictionary(dictionaryPath), 3, .001, true);
-            string name = ng.GenerateName();
-            player = new Player(t.x, t.y, 9, name);
+            player = new Player(t.x, t.y, 9, playerName);
 
             //start message
             GameLog.newMessage("Welcome, " + player.name + "!");

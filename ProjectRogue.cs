@@ -46,7 +46,6 @@ namespace ProjectRogue
             graphics.ApplyChanges();
             
             GameController.mainWindow = this;
-            GameController.currentGUI = new TurnHandler();
 
             this.Window.AllowUserResizing = true;
             this.Window.ClientSizeChanged += Window_ClientSizeChanged;
@@ -69,6 +68,8 @@ namespace ProjectRogue
             string textFontPath = Path.Combine(Path.GetFullPath("resources/"), "DejaVuSansMono.ttf");
             GraphX.font = new VectorFont(fontPath, 40);
             GraphX.textFont = new VectorFont(textFontPath, GraphX.textFontHeight);
+            GraphX.textFontAdvance = (ushort) GraphX.textFont.MeasureString(" ").x;
+
             GraphX.smallFont = new VectorFont(fontPath, 10);
 
             foreach(TilePaint t in TilePaint.tilePaints)
@@ -84,6 +85,8 @@ namespace ProjectRogue
 
             GraphX.shadow = new Texture2D(GraphicsDevice, 1, 1);
             GraphX.shadow.SetData(new Color[] { Color.FromNonPremultiplied(0, 0, 0, 100) });
+
+            GameController.currentGUI = new GUIMainMenu();
         }
 
         /// <summary>

@@ -26,7 +26,8 @@ namespace ProjectRogue
         public static VectorFont textFont;
         public static VectorFont smallFont;
 
-        public static uint textFontHeight = 15;
+        public static ushort textFontHeight = 15;
+        public static ushort textFontAdvance;
 
         public static int sideBarOffset = 5;
 
@@ -116,11 +117,11 @@ namespace ProjectRogue
                 {
                     if (tile.creature != null)
                     {
-                        font.DrawString(spriteBatch, tile.creature.displayString, v, tile.creature.displayColor);
+                        font.DrawCharCentered(spriteBatch, tile.creature.displayString, v, tile.creature.displayColor);
                     }
                     else if (tile.items.Count > 0)
                     {
-                        font.DrawString(spriteBatch, tile.items[0].displayString, v, tile.items[0].displayColor);
+                        font.DrawCharCentered(spriteBatch, tile.items[0].displayString, v, tile.items[0].displayColor);
 
                         if (tile.items.Count > 1)
                         {
@@ -128,24 +129,24 @@ namespace ProjectRogue
                             v.Width = tileLength / 3;
                             v.Height = tileLength / 3;
 
-                            smallFont.DrawString(spriteBatch, "+", v, Color.Red);
+                            smallFont.DrawCharCentered(spriteBatch, "+", v, Color.Red);
                         }
 
                     }
                     else if (tile.paint.displayString != "")
                     {
-                        font.DrawString(spriteBatch, tile.paint.displayString, v, tile.paint.displayStringColor);
+                        font.DrawCharCentered(spriteBatch, tile.paint.displayString, v, tile.paint.displayStringColor);
                     }
                 }
                 else if (tile.wasVisible)
                 {
                     if (tile.lastDisplayStringColor != null)
                     {
-                        font.DrawString(spriteBatch, tile.lastDisplayString, v, (Color)tile.lastDisplayStringColor);
+                        font.DrawCharCentered(spriteBatch, tile.lastDisplayString, v, (Color)tile.lastDisplayStringColor);
                     }
                     else if (tile.items.Count > 0)
                     {
-                        font.DrawString(spriteBatch, tile.items[0].displayString, v, tile.items[0].displayColor);
+                        font.DrawCharCentered(spriteBatch, tile.items[0].displayString, v, tile.items[0].displayColor);
 
                         if (tile.items.Count > 1)
                         {
@@ -153,12 +154,12 @@ namespace ProjectRogue
                             v.Width = tileLength / 3;
                             v.Height = tileLength / 3;
 
-                            smallFont.DrawString(spriteBatch, "+", v, Color.Red);
+                            smallFont.DrawCharCentered(spriteBatch, "+", v, Color.Red);
                         }
                     }
                     else if (tile.paint.displayString != "")
                     {
-                        font.DrawString(spriteBatch, tile.paint.displayString, v, tile.paint.displayStringColor);
+                        font.DrawCharCentered(spriteBatch, tile.paint.displayString, v, tile.paint.displayStringColor);
                     }
                 }
             }

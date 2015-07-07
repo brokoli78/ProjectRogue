@@ -15,6 +15,11 @@ decline: N
 safeAccept: Z, Shift
 safeDecline: N, Shift
 
+arrowUp: Up
+arrowDown: Down
+arrowLeft: Left
+arrowRight: Right
+
 //movement
 moveSW: NumPad1
 moveS: NumPad2

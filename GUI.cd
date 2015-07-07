@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="ProjectRogue.GUI" Collapsed="true">
+    <Position X="1" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAEIAgAhAAAAAAACAAAAAAQAAAIAAACAQAA=</HashCode>
+      <FileName>GUI.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProjectRogue.GUIList" Collapsed="true">
+    <Position X="8" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAIAgAAAwAIAAAIgAAAAAAFAAQAAAAAAAAQAAA=</HashCode>
+      <FileName>GUIList.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProjectRogue.GUIModule" Collapsed="true">
+    <Position X="6" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAQAAAAAAQAAAAAAAAAAAA=</HashCode>
+      <FileName>GUIModule.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProjectRogue.GUIPage">
+    <Position X="3" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAgAAAAAAAAAAAAAAAAQAAAAAAAAAAAA=</HashCode>
+      <FileName>GUIPage.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProjectRogue.GUITextbox" Collapsed="true">
+    <Position X="6" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAAAAgAAAAIAAAAAAAAAAACIAAAAAAAAAAA=</HashCode>
+      <FileName>GUITextbox.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProjectRogue.GUIYesNo" Collapsed="true">
+    <Position X="3" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAgAAAAABAAAAAAQAAAQAAAAAAAAAAAA=</HashCode>
+      <FileName>GUIYesNo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProjectRogue.TurnHandler" Collapsed="true">
+    <Position X="1" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAQAQAAAICgAEAAABQAACAAAAAgQAAAIAAIAAQAA=</HashCode>
+      <FileName>TurnHandler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProjectRogue.GUIMainMenu">
+    <Position X="1" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAACAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>GUIMainMenu.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

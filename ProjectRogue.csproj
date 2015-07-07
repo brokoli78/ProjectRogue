@@ -69,8 +69,13 @@
     <Compile Include="DownStairTile.cs" />
     <Compile Include="FloorTile.cs" />
     <Compile Include="FOV.cs" />
+    <Compile Include="GUICreateCharacter.cs" />
+    <Compile Include="GUIList.cs" />
+    <Compile Include="GUILoadGame.cs" />
+    <Compile Include="GUIMainMenu.cs" />
     <Compile Include="GUIModule.cs" />
     <Compile Include="GUIPage.cs" />
+    <Compile Include="GUITextbox.cs" />
     <Compile Include="GUIYesNo.cs" />
     <Compile Include="KeyMapper.cs" />
     <Compile Include="GameController.cs" />
@@ -151,6 +156,7 @@
     <None Include="Content\obj\WindowsGL\.mgcontent" />
     <None Include="Content\obj\WindowsGL\Dejavu Sans Mono.mgcontent" />
     <None Include="Content\obj\WindowsGL\Dejavu Sans.mgcontent" />
+    <None Include="GUI.cd" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -163,6 +169,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <MonoGameContentReference Include="resources\resources.mgcb" />
+    <None Include="resources\logo.logo">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
