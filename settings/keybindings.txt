@@ -30,6 +30,15 @@ moveNW: NumPad7
 moveN: NumPad8
 moveNE: NumPad9
 
+bigMoveSW: NumPad1, Control
+bigMoveS: NumPad2, Control
+bigMoveSE: NumPad3, Control
+bigMoveW: NumPad4, Control
+bigMoveE: NumPad6, Control
+bigMoveNW: NumPad7, Control
+bigMoveN: NumPad8, Control
+bigMoveNE: NumPad9, Control
+
 goUp, <: None
 goDown, >: None, Shift
 
@@ -41,6 +50,8 @@ rest, 5: D5
 
 run: O
 run: Enter
+
+lookAround: X, Shift
 
 //inventory
 pickUp, g: G

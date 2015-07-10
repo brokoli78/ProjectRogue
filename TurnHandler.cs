@@ -93,7 +93,7 @@ namespace ProjectRogue
                 if (!RunRestLoop.start)
                     RunRestLoop.cont = true; 
 
-                RunRestLoop.StartRunLoop(GameController.player, GameController.map);
+                RunRestLoop.StartExploreLoop(GameController.player, GameController.map);
                 return;
             }
 
@@ -169,6 +169,11 @@ namespace ProjectRogue
                 {
                     GameLog.newMessage("There are no items here.");
                 }
+            }
+
+            if(keyMapper.HasState("lookAround", state))
+            {
+                GameController.currentGUI = new GUILookAround();
             }
 
             GameController.player.OnKeyPress(keyMapper, state);

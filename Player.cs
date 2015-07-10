@@ -131,7 +131,7 @@ namespace ProjectRogue
 
         protected override void EndTurn()
         {
-            GraphX.UpdateVisibleArea(this, map);
+            GraphX.UpdateVisibleArea();
             base.EndTurn();
         }
 

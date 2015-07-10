@@ -57,6 +57,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>Icon.ico</ApplicationIcon>
@@ -72,6 +73,7 @@
     <Compile Include="GUICreateCharacter.cs" />
     <Compile Include="GUIList.cs" />
     <Compile Include="GUILoadGame.cs" />
+    <Compile Include="GUILookAround.cs" />
     <Compile Include="GUIMainMenu.cs" />
     <Compile Include="GUIModule.cs" />
     <Compile Include="GUIPage.cs" />

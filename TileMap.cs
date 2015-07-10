@@ -80,12 +80,21 @@ namespace ProjectRogue
             return (Tile) GameObject.gameObjectDatabase[upConnections[i]];
         }
 
+        public int upConnectionCount()
+        {
+            return upConnections.Count;
+        }
+
         public Tile downConnection(int i)
         {
             return (Tile)GameObject.gameObjectDatabase[downConnections[i]];
         }
 
-
+        public int downConnectionCount()
+        {
+            return downConnections.Count;
+        }
+       
         public List<Tile> emptyTiles 
         {
             get { return empty.Select(x => (Tile)GameController.gameObjectDatabase[x]).ToList(); }

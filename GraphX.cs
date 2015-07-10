@@ -31,53 +31,63 @@ namespace ProjectRogue
 
         public static int sideBarOffset = 5;
 
-        public static void UpdateVisibleArea(Player player, TileMap map)
+        static Tile centerTile;
+
+        public static void UpdateVisibleArea()
         {
             foreach (Tile t in visibleTiles)
-                map[t.x, t.y].visible = false;
+                GameController.map[t.x, t.y].visible = false;
 
-            visibleTiles = player.FieldOfVision();
+            visibleTiles = GameController.player.FieldOfVision();
 
             foreach (Tile tile in visibleTiles)
             {
-                map[tile.x, tile.y].visible = true;
-                map[tile.x, tile.y].wasVisible = true;
-                if (map[tile.x, tile.y].creature != null)
+                GameController.map[tile.x, tile.y].visible = true;
+                GameController.map[tile.x, tile.y].wasVisible = true;
+                if (GameController.map[tile.x, tile.y].creature != null)
                 {
-                    map[tile.x, tile.y].lastDisplayString = map[tile.x, tile.y].creature.displayString;
-                    map[tile.x, tile.y].lastDisplayStringColor = map[tile.x, tile.y].creature.displayColor;
+                    GameController.map[tile.x, tile.y].lastDisplayString = GameController.map[tile.x, tile.y].creature.displayString;
+                    GameController.map[tile.x, tile.y].lastDisplayStringColor = GameController.map[tile.x, tile.y].creature.displayColor;
                 }
                 else
                 {
-                    map[tile.x, tile.y].lastDisplayString = null;
-                    map[tile.x, tile.y].lastDisplayStringColor = null;
+                    GameController.map[tile.x, tile.y].lastDisplayString = null;
+                    GameController.map[tile.x, tile.y].lastDisplayStringColor = null;
                 }
             }
 
+            UpdateOnScreenArea(GameController.map[GameController.player.x, GameController.player.y]);
+
+        }
+
+
+        public static void UpdateOnScreenArea(Tile centerTile)
+        {
+            GraphX.centerTile = centerTile;
             onScreenArea = new List<Tile>();
-            for (int x = player.x - (tilesVisibleX - 1) / 2; x < player.x + (tilesVisibleX - 1) / 2 + 1; x++)
+            for (int x = centerTile.x - (tilesVisibleX - 1) / 2; x < centerTile.x + (tilesVisibleX - 1) / 2 + 1; x++)
             {
-                if (0 <= x && x < map.mapX)
+                if (0 <= x && x < GameController.map.mapX)
                 {
-                    for (int y = player.y - (tilesVisibleY - 1) / 2; y < player.y + (tilesVisibleY - 1) / 2 + 1; y++)
+                    for (int y = centerTile.y - (tilesVisibleY - 1) / 2; y < centerTile.y + (tilesVisibleY - 1) / 2 + 1; y++)
                     {
-                        if (0 <= y && y < map.mapY)
+                        if (0 <= y && y < GameController.map.mapY)
                         {
-                            onScreenArea.Add(map[x, y]);
+                            onScreenArea.Add(GameController.map[x, y]);
                         }
                     }
                 }
             }
+
         }
 
         public static void Draw(SpriteBatch spriteBatch)
         {
-            Tile playerTile = GameController.map[GameController.player.x, GameController.player.y];
             if(resized)
             {
                 font.SetSize((uint)tileLength);
                 smallFont.SetSize((uint)tileLength / 3);
-                UpdateVisibleArea(GameController.player, GameController.map);
+                UpdateVisibleArea();
                 resized = false;
             }
 
@@ -99,7 +109,7 @@ namespace ProjectRogue
             {
                 if (t.wasVisible)
                 {
-                    Vector2 v = TileToCoords(new Vector2((t.x - playerTile.x + (tilesVisibleX - 1) / 2), (t.y - playerTile.y + (tilesVisibleY - 1) / 2)));
+                    Vector2 v = TileToCoords(new Vector2((t.x - centerTile.x + (tilesVisibleX - 1) / 2), (t.y - centerTile.y + (tilesVisibleY - 1) / 2)));
                     dummyRect = new Rectangle((int)v.x, (int)v.y, tileLength, tileLength);
                     spriteBatch.Draw(t.paint.background, dummyRect, Color.White);
                 } 
@@ -110,7 +120,7 @@ namespace ProjectRogue
             // Draw the text
             foreach (Tile tile in onScreenArea)
             {
-                Vector2 vec = TileToCoords(new Vector2((tile.x - playerTile.x + (tilesVisibleX - 1) / 2), (tile.y - playerTile.y + (tilesVisibleY - 1) / 2)));
+                Vector2 vec = TileToCoords(new Vector2((tile.x - centerTile.x + (tilesVisibleX - 1) / 2), (tile.y - centerTile.y + (tilesVisibleY - 1) / 2)));
                 Rectangle v = new Rectangle((int)vec.x, (int)vec.y, tileLength, tileLength);
 
                 if (tile.visible)
@@ -170,14 +180,14 @@ namespace ProjectRogue
             {
                 if(tile.wasVisible && !tile.visible)
                 {
-                    Vector2 v = TileToCoords(new Vector2((tile.x - playerTile.x + (tilesVisibleX - 1) / 2), (tile.y - playerTile.y + (tilesVisibleY - 1) / 2)));
+                    Vector2 v = TileToCoords(new Vector2((tile.x - centerTile.x + (tilesVisibleX - 1) / 2), (tile.y - centerTile.y + (tilesVisibleY - 1) / 2)));
                     dummyRect = new Rectangle((int)v.x, (int)v.y, tileLength, tileLength);
                     spriteBatch.Draw(shadow, dummyRect, Color.White);
                 }
             }            
         }
 
-        static private Vector2 TileToCoords(Vector2 t)
+        public static Vector2 TileToCoords(Vector2 t)
         {
             return new Vector2((int)(t.x * tileLength), (int)(t.y * tileLength));
         }

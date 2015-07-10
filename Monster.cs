@@ -47,7 +47,7 @@ namespace ProjectRogue
                 {
                     move(path.Last().x, path.Last().y);
                 }
-                else if (AStar.CalculatePath(map, map[x, y], map[player.x, player.y], out path))
+                else if (AStar.CalculatePath(map, map[x, y], map[player.x, player.y], out path, false))
                 {
                     move(path.Last().x, path.Last().y);
                 }
@@ -62,7 +62,7 @@ namespace ProjectRogue
                 {
                     move(path.Last().x, path.Last().y);
                 }
-                else if (AStar.CalculatePath(map, map[x, y], map[tempPath.First().x, tempPath.First().y], out path))
+                else if (AStar.CalculatePath(map, map[x, y], map[tempPath.First().x, tempPath.First().y], out path, false))
                 {
                     move(path.Last().x, path.Last().y);
                 }

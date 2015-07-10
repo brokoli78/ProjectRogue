@@ -40,6 +40,10 @@ namespace ProjectRogue
         public override void PickUp(Creature c)
         {
             c.gold += value;
+
+            if (c as Player != null)
+                GameLog.newMessage("You now have " + c.gold + " gold pieces (gained " + value + ").");
+
             map[x, y].RemoveItem(this);
             this.Destroy();
         }

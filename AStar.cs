@@ -25,7 +25,7 @@ namespace ProjectRogue
         };
 
 
-        public static bool CalculatePath(TileMap map, Tile startTile, Tile endTile, out List<Tile> path)
+        public static bool CalculatePath(TileMap map, Tile startTile, Tile endTile, out List<Tile> path, bool onlyUseKnown)
         {
             MapNode[,] nodeMap = new MapNode[map.mapX, map.mapY];
             path = new List<Tile>();
@@ -73,7 +73,14 @@ namespace ProjectRogue
                     if (neighbor.closed)
                         continue;
 
-                    double tentative_g_score = currentNode.score.g_score + currentNode.cost + neighbor.costModifier;
+
+                    double visibleModifier = 0;
+                    if(onlyUseKnown && !((Tile)neighbor).wasVisible)
+                    {
+                        visibleModifier = double.PositiveInfinity;
+                    }
+
+                    double tentative_g_score = currentNode.score.g_score + currentNode.cost + neighbor.costModifier + visibleModifier;
                     if (!neighbor.open) //wenn der nachbar noch nicht in der openlist ist oder der pfad kürzer...
                     {
                         neighbor.score = new Score(tentative_g_score, tentative_g_score + hce(neighbor, end));
@@ -349,6 +356,5 @@ namespace ProjectRogue
             }
 
         }
-
     }
 }

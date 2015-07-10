@@ -13,7 +13,7 @@ namespace ProjectRogue
 {
     public static class GameController
     {
-        public const string version = "0.14.0 \"Cadamivur\"";
+        public const string version = "0.15.0 \"Mundelindra\"";
         public const string myMagicHeader = "This is a rogue save file, it will destroy you.";
         public const string separator = ",";
         public const string comment = "//";
@@ -252,7 +252,7 @@ namespace ProjectRogue
                     if (version != headerVersion && !ignoreVersion)
                     {
                         currentGUI = new GUIYesNo("The save file appears to be an older version (" + headerVersion + ", the current version is " + version + "). Try loading anyway?",
-                            NewGame, ignoreVersionLoad);
+                            ignoreVersionLoad, currentGUI.Close);
                         return;
                     }
 
@@ -310,7 +310,7 @@ namespace ProjectRogue
 
             DeleteGame();
             GameLog.newMessage("Welcome back, " + player.name + "!");
-            GraphX.UpdateVisibleArea(player, map);
+            GraphX.UpdateVisibleArea();
             save = true;
             playerName = player.name;
         }
@@ -428,7 +428,7 @@ namespace ProjectRogue
                 new Rat(t.x, t.y);
                 dummy.Remove(t);
             }
-            GraphX.UpdateVisibleArea(player, map);
+            GraphX.UpdateVisibleArea();
         }
 
         public static void DeleteGame()

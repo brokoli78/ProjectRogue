@@ -105,6 +105,7 @@ namespace ProjectRogue
         }
 
         TimeSpan accumulatedDeltaTime = TimeSpan.Zero;
+        int prevKeys = 0;
 
         /// <summary>
         /// Allows the game to run logic such as updating the world,
@@ -115,10 +116,8 @@ namespace ProjectRogue
         {
             KeyboardState state = Keyboard.GetState();
 
-            if(state != previousState)
+            if (state != previousState)
             {
-                previousState = state;
-
                 int keys = state.GetPressedKeys().Length;
 
                 if (state.IsKeyDown(Keys.LeftShift))
@@ -138,12 +137,15 @@ namespace ProjectRogue
                 if (state.IsKeyDown(Keys.RightWindows))
                     keys--;
 
-                if(keys > 0 && GameController.currentGUI != null)
+                if (keys > 0 && GameController.currentGUI != null && prevKeys != keys)
                 {
                     GameController.currentGUI.KeyPress(state);
                 }
-            }
 
+                previousState = state;
+                prevKeys = keys;
+
+            }
 
             accumulatedDeltaTime += gameTime.ElapsedGameTime;
 
@@ -182,6 +184,23 @@ namespace ProjectRogue
                 GraphX.tilesVisibleX--;
                 GraphX.sideBarWidth += GraphX.tileLength;
             }
+
+
+            GUILookAround.rectangle = new Texture2D(GraphicsDevice, GraphX.tileLength, GraphX.tileLength);
+            Color[] colors = new Color[GraphX.tileLength * GraphX.tileLength];
+
+            for (int x = 0; x < GraphX.tileLength; x++)
+            {
+                for (int y = 0; y < GraphX.tileLength; y++)
+                {
+                    if (x <= 1 || y <= 1 || x >= GraphX.tileLength - 2 || y >= GraphX.tileLength - 2)
+                        colors[x * GraphX.tileLength + y] = Color.Blue;
+                    else
+                        colors[x * GraphX.tileLength + y] = Color.Transparent;
+                }
+            }
+
+            GUILookAround.rectangle.SetData(colors);
 
             GraphX.resized = true;
         }

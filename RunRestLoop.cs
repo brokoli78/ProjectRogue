@@ -24,8 +24,13 @@ namespace ProjectRogue
 
         static bool hpRegen = false;
 
+        static bool explore = false;
+
         public static void RunLoop()
         {
+            if (explore && !runLoop)
+                explore = false;
+
             if (runLoop)
             {
                 List<Monster> monsters = player.FieldOfVision().Where(x => x.creature as Monster != null).Select(x => (Monster)x.creature).ToList();
@@ -48,6 +53,7 @@ namespace ProjectRogue
                             if (Message.sameBaseMessage(m1, m2))
                             {
                                 runLoop = false;
+                                explore = false;
                                 break;
                             }
                         }
@@ -60,14 +66,14 @@ namespace ProjectRogue
                 }
             }
             
-            if (runLoop)
+            if (runLoop && explore)
             {
                 if(cont)
                 {
                     GameLog.newMessage("You continue exploring.");
                     cont = false;
                 }
-                if(start)
+                if (start)
                 {
                     GameLog.newMessage("You start exploring.");
                     start = false;
@@ -77,7 +83,8 @@ namespace ProjectRogue
                 if (destination.wasVisible == true)
                 {
                     runLoop = false;
-                    StartRunLoop();
+                    explore = false;
+                    StartExploreRunLoop();
                     RunLoop();
                     return;
                 }
@@ -90,6 +97,7 @@ namespace ProjectRogue
                 else
                 {
                     runLoop = false;
+                    explore = false;
                     return;
                 }
 
@@ -97,11 +105,54 @@ namespace ProjectRogue
                 if (path.Count == 0)
                 {
                     runLoop = false;
+                    explore = false;
                 }
+            }
+            else if(runLoop) //TODO: multilevel stuff
+            {
+                Tile tile = path.Last();
+
+                if (tile.walkable)
+                {
+                    player.move(tile.x, tile.y);
+                    GameObject.newTurn();
+                }
+                else
+                {
+                    runLoop = false;
+                    explore = false;
+                    return;
+                }
+
+                path.RemoveAt(path.Count - 1);
+                if (path.Count == 0)
+                {
+                    runLoop = false;
+                    explore = false;
+                }
+
             }
         }
 
-        public static void StartRunLoop(Player p, TileMap m)
+        public static void StartRunLoop(List<Tile> path)
+        {
+            explore = false;
+            player = GameController.player;
+            map = GameController.map;
+
+            List<Monster> monsters = player.FieldOfVision().Where(x => x.creature as Monster != null).Select(x => (Monster)x.creature).ToList();
+            if (monsters.Count > 0)
+            {
+                GameLog.newMessage(Messages.enemiesNearby());
+                return;
+            }
+
+            RunRestLoop.path = path;
+
+            runLoop = true;
+        }
+
+        public static void StartExploreLoop(Player p, TileMap m)
         {
             player = p;
             map = m;
@@ -119,6 +170,7 @@ namespace ProjectRogue
             {
                 destination = path.First();
                 runLoop = true;
+                explore = true;
             }
             else
             {
@@ -126,7 +178,8 @@ namespace ProjectRogue
             }
         }
 
-        private static void StartRunLoop()
+
+        private static void StartExploreRunLoop()
         {
             path = new List<Tile>();
 
@@ -134,6 +187,7 @@ namespace ProjectRogue
             {
                 destination = path.First();
                 runLoop = true;
+                explore = true;
             }
             else
             {
