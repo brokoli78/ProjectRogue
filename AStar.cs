@@ -107,7 +107,7 @@ namespace ProjectRogue
             return false;
         }
 
-        public static bool ExplorePath(TileMap map, Tile startTile, out List<Tile> path)
+        public static bool ExplorePath(TileMap map, Tile startTile, out List<Tile> path, bool autopickup)
         {
             MapNode[,] nodeMap = new MapNode[map.mapX, map.mapY];
             path = new List<Tile>();
@@ -133,7 +133,7 @@ namespace ProjectRogue
                     return false;
                 }
 
-                if (((Tile)currentNode).explorable && !((Tile)currentNode).wasVisible && (Tile) currentNode != startTile)
+                if (((((Tile)currentNode).explorable && !((Tile)currentNode).wasVisible) || ((Tile)currentNode).items.Where(i => i.tags.Contains("autopickup")).Count() > 0) && (Tile) currentNode != startTile)
                 {
                     path = ConstructPath(currentNode, start);
                     return true;
@@ -196,7 +196,7 @@ namespace ProjectRogue
             return path;
         }
 
-        static double hce(MapNode start, MapNode end) //heuristic_cost_estimate (luftliniendistanz) TODO verify
+        static double hce(MapNode start, MapNode end) //heuristic_cost_estimate (luftliniendistanz)
         {
             return (double)Math.Sqrt(Math.Pow(start.x - end.x, 2F) + Math.Pow(start.y - end.y, 2));
         }

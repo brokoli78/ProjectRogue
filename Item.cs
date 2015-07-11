@@ -54,5 +54,7 @@ namespace ProjectRogue
         {
             //TODO: "real" items can be picked up, generic if possible
         }
+
+        public abstract string[] tags { get; }
     }
 }

@@ -228,8 +228,8 @@ namespace ProjectRogue
                 }
             }
 
-            currentX = MyMath.Clamp(tempX, 0, GameController.mapX);
-            currentY = MyMath.Clamp(tempY, 0, GameController.mapY);
+            currentX = MyMath.Clamp(tempX, 0, GameController.mapX - 1);
+            currentY = MyMath.Clamp(tempY, 0, GameController.mapY - 1);
             GraphX.UpdateOnScreenArea(GameController.map[currentX, currentY]);
         }
 

@@ -94,7 +94,6 @@
     <Compile Include="MyMath.cs" />
     <Compile Include="NameGenerator.cs" />
     <Compile Include="Node.cs" />
-    <Compile Include="Permanent.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="ProjectRogue.cs" />
     <Compile Include="Program.cs" />

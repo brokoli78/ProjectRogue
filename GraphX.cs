@@ -22,6 +22,8 @@ namespace ProjectRogue
         static List<Tile> visibleTiles = new List<Tile>();
         public static Texture2D shadow;
 
+        public static Texture2D autopickup;
+
         public static VectorFont font;
         public static VectorFont textFont;
         public static VectorFont smallFont;
@@ -133,6 +135,9 @@ namespace ProjectRogue
                     {
                         font.DrawCharCentered(spriteBatch, tile.items[0].displayString, v, tile.items[0].displayColor);
 
+                        if (tile.items.Where(i => i.tags.Contains("autopickup")).Count() > 0)
+                            spriteBatch.Draw(autopickup, vec, Color.White);
+
                         if (tile.items.Count > 1)
                         {
                             v.X += 2 * tileLength / 3;
@@ -141,7 +146,6 @@ namespace ProjectRogue
 
                             smallFont.DrawCharCentered(spriteBatch, "+", v, Color.Red);
                         }
-
                     }
                     else if (tile.paint.displayString != "")
                     {
@@ -157,6 +161,9 @@ namespace ProjectRogue
                     else if (tile.items.Count > 0)
                     {
                         font.DrawCharCentered(spriteBatch, tile.items[0].displayString, v, tile.items[0].displayColor);
+
+                        if (tile.items.Where(i => i.tags.Contains("autopickup")).Count() > 0)
+                            spriteBatch.Draw(autopickup, vec, Color.White);
 
                         if (tile.items.Count > 1)
                         {

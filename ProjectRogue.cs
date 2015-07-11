@@ -98,6 +98,8 @@ namespace ProjectRogue
             SideBar.green.Dispose();
             SideBar.grey.Dispose();
             GraphX.shadow.Dispose();
+            GUILookAround.rectangle.Dispose();
+            GraphX.autopickup.Dispose();
 
             GraphX.font.Dispose();
             GraphX.textFont.Dispose();
@@ -185,9 +187,30 @@ namespace ProjectRogue
                 GraphX.sideBarWidth += GraphX.tileLength;
             }
 
+            if (GraphX.autopickup != null)
+                GraphX.autopickup.Dispose();
+
+            GraphX.autopickup = new Texture2D(GraphicsDevice, GraphX.tileLength, GraphX.tileLength);
+            Color[] colors = new Color[GraphX.tileLength * GraphX.tileLength];
+
+            for (int x = 0; x < GraphX.tileLength; x++)
+            {
+                for (int y = 0; y < GraphX.tileLength; y++)
+                {
+                    if (x <= 1 || y <= 1 || x >= GraphX.tileLength - 2 || y >= GraphX.tileLength - 2)
+                        colors[x * GraphX.tileLength + y] = Color.LightGreen;
+                    else
+                        colors[x * GraphX.tileLength + y] = Color.Transparent;
+                }
+            }
+            GraphX.autopickup.SetData(colors);
+
+
+            if (GUILookAround.rectangle != null)
+                GUILookAround.rectangle.Dispose();
 
             GUILookAround.rectangle = new Texture2D(GraphicsDevice, GraphX.tileLength, GraphX.tileLength);
-            Color[] colors = new Color[GraphX.tileLength * GraphX.tileLength];
+            colors = new Color[GraphX.tileLength * GraphX.tileLength];
 
             for (int x = 0; x < GraphX.tileLength; x++)
             {
@@ -199,6 +222,7 @@ namespace ProjectRogue
                         colors[x * GraphX.tileLength + y] = Color.Transparent;
                 }
             }
+
 
             GUILookAround.rectangle.SetData(colors);
 

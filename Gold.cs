@@ -47,5 +47,17 @@ namespace ProjectRogue
             map[x, y].RemoveItem(this);
             this.Destroy();
         }
+
+        public override string[] tags
+        {
+            get
+            {
+                return new string[]
+                {
+                    "gold",
+                    "autopickup"
+                };
+            }
+        }
     }
 }

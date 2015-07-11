@@ -13,6 +13,7 @@ namespace ProjectRogue
         static int turnsRested = 0;
         static Player player;
         static Tile destination;
+        static bool pickup = false;
         static TileMap map;
         static List<Message> runRestStopMessage = new List<Message> 
         { 
@@ -80,11 +81,11 @@ namespace ProjectRogue
                 }
 
                 Tile tile = path.Last();
-                if (destination.wasVisible == true)
+                if (destination.wasVisible == true && !pickup)
                 {
                     runLoop = false;
                     explore = false;
-                    StartExploreRunLoop();
+                    StartExploreLoop();
                     RunLoop();
                     return;
                 }
@@ -106,6 +107,16 @@ namespace ProjectRogue
                 {
                     runLoop = false;
                     explore = false;
+
+                    if (destination.items.Where(i => i.tags.Contains("autopickup")).Count() > 0)
+                    {
+                        destination.items.Where(i => i.tags.Contains("autopickup")).ElementAt(0).PickUp(GameController.player);
+                        GameObject.newTurn();
+                    }
+
+                    StartExploreLoop();
+                    RunLoop();
+                    return;
                 }
             }
             else if(runLoop) //TODO: multilevel stuff
@@ -164,11 +175,20 @@ namespace ProjectRogue
                 return;
             }
 
+            if (map[player.x, player.y].items.Where(i => i.tags.Contains("autopickup")).Count() > 0)
+            {
+                map[player.x, player.y].items.Where(i => i.tags.Contains("autopickup")).ElementAt(0).PickUp(GameController.player);
+                GameObject.newTurn();
+                StartExploreLoop();
+                return;
+            }
+
             path = new List<Tile>();
 
-            if (AStar.ExplorePath(map, map[player.x, player.y], out path))
+            if (AStar.ExplorePath(map, map[player.x, player.y], out path, true))
             {
                 destination = path.First();
+                pickup = destination.wasVisible;
                 runLoop = true;
                 explore = true;
             }
@@ -179,13 +199,22 @@ namespace ProjectRogue
         }
 
 
-        private static void StartExploreRunLoop()
+        private static void StartExploreLoop()
         {
+            if (map[player.x, player.y].items.Where(i => i.tags.Contains("autopickup")).Count() > 0)
+            {
+                map[player.x, player.y].items.Where(i => i.tags.Contains("autopickup")).ElementAt(0).PickUp(GameController.player);
+                GameObject.newTurn();
+                StartExploreLoop();
+                return;
+            }
+
             path = new List<Tile>();
 
-            if (AStar.ExplorePath(map, map[player.x, player.y], out path))
+            if (AStar.ExplorePath(map, map[player.x, player.y], out path, true))
             {
                 destination = path.First();
+                pickup = destination.wasVisible;
                 runLoop = true;
                 explore = true;
             }
