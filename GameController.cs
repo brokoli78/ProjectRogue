@@ -112,7 +112,7 @@ namespace ProjectRogue
         public static bool save = true;
 
 
-        static CompressionAlgorithm compressSaves = CompressionAlgorithm.dotNET;
+        static CompressionAlgorithm compressSaves = CompressionAlgorithm.None;
 
         public static void SaveGame()
         {
@@ -160,18 +160,18 @@ namespace ProjectRogue
             saveFileWriter.WriteLine(saveGame.currentFloor);
             saveFileWriter.WriteLine(saveGame.turnCounter);
 
-            for (int i = 0; i < saveGame.maxFloors; i++) // write all gameObjects;
+            for (currentFloor = 0; currentFloor < saveGame.maxFloors; currentFloor++) // write all gameObjects;
             {
-                saveFileWriter.WriteLine(comment + "GameObjects for floor " + i.ToString());
+                saveFileWriter.WriteLine(comment + "GameObjects for floor " + currentFloor.ToString());
 
-                saveFileWriter.WriteLine(saveGame.map[i].mapX);
-                saveFileWriter.WriteLine(saveGame.map[i].mapY);
+                saveFileWriter.WriteLine(map.mapX);
+                saveFileWriter.WriteLine(map.mapY);
 
                 List<Tile> tiles = new List<Tile>(); //tiles need to be initialized first!
                 List<Creature> creatures = new List<Creature>(); //creatures need to be second!
                 List<GameObject> misc = new List<GameObject>(); //random stuff (hopefully nothing)
 
-                foreach(GameObject go in saveGame.gameObjectDatabase[i].Values)
+                foreach(GameObject go in gameObjectDatabase.Values)
                 {
                     if(go as Tile != null)
                     {

@@ -51,6 +51,7 @@ namespace ProjectRogue
                 while(File.Exists(GameController.saveDirectory + fileName + ".rogue"))
                 {
                     fileName = origFileName + " (" + i + ")";
+                    i++;
                 }
 
                 GameController.FileName = GameController.saveDirectory + fileName + ".rogue";

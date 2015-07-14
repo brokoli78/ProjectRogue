@@ -35,10 +35,15 @@ namespace ProjectRogue
 
         static Tile centerTile;
 
-        public static void UpdateVisibleArea()
+        public static void URBLINDNOW()
         {
             foreach (Tile t in visibleTiles)
                 GameController.map[t.x, t.y].visible = false;
+        }
+
+        public static void UpdateVisibleArea()
+        {
+            URBLINDNOW();
 
             visibleTiles = GameController.player.FieldOfVision();
 
@@ -48,13 +53,16 @@ namespace ProjectRogue
                 GameController.map[tile.x, tile.y].wasVisible = true;
                 if (GameController.map[tile.x, tile.y].creature != null)
                 {
-                    GameController.map[tile.x, tile.y].lastDisplayString = GameController.map[tile.x, tile.y].creature.displayString;
-                    GameController.map[tile.x, tile.y].lastDisplayStringColor = GameController.map[tile.x, tile.y].creature.displayColor;
+                    if(tile.x != GameController.player.x && tile.y != GameController.player.y)
+                    {
+                        GameController.map[tile.x, tile.y].lastDisplayString = GameController.map[tile.x, tile.y].creature.displayString;
+                        GameController.map[tile.x, tile.y].lastDisplayStringColor = GameController.map[tile.x, tile.y].creature.displayColor;
+                    }
                 }
                 else
                 {
-                    GameController.map[tile.x, tile.y].lastDisplayString = null;
-                    GameController.map[tile.x, tile.y].lastDisplayStringColor = null;
+                    GameController.map[tile.x, tile.y].lastDisplayString = "";
+                    GameController.map[tile.x, tile.y].lastDisplayStringColor = Color.Transparent;
                 }
             }
 
@@ -154,7 +162,7 @@ namespace ProjectRogue
                 }
                 else if (tile.wasVisible)
                 {
-                    if (tile.lastDisplayStringColor != null)
+                    if (tile.lastDisplayString != "")
                     {
                         font.DrawCharCentered(spriteBatch, tile.lastDisplayString, v, (Color)tile.lastDisplayStringColor);
                     }

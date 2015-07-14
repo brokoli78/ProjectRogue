@@ -71,8 +71,8 @@ namespace ProjectRogue
 
         public bool visible = false;
         public bool wasVisible = false;
-        public string lastDisplayString = null;
-        public Color? lastDisplayStringColor = null;
+        public string lastDisplayString = "";
+        public Color lastDisplayStringColor = Color.Transparent;
 
         public bool explorable = true;
         private bool Walkable;
@@ -115,6 +115,8 @@ namespace ProjectRogue
         {
             base.Load(saveStrings);
             wasVisible = Convert.ToBoolean(saveStrings.Dequeue());
+            lastDisplayString = saveStrings.Dequeue();
+            lastDisplayStringColor = new Color { PackedValue = Convert.ToUInt32(saveStrings.Dequeue()) };
         }
 
         public override List<string> saveString
@@ -124,6 +126,8 @@ namespace ProjectRogue
                 List<string> s = new List<string>();
                 s.AddRange(base.saveString);
                 s.Add(wasVisible.ToString());
+                s.Add(lastDisplayString);
+                s.Add(lastDisplayStringColor.PackedValue.ToString());
                 return s;
             }
         }

@@ -42,6 +42,5 @@ namespace ProjectRogue
             }
             return cnt.Values.All(c => c == 0);
         }
-
     }
 }

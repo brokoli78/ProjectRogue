@@ -8,7 +8,9 @@ namespace ProjectRogue
 {
     public abstract class Item : GameObject
     {
-        public enum ItemCreationMode { Map, Inventory}
+        public enum ItemCreationMode { Map, Inventory }
+
+        int ownerId = -1;
 
         public ItemCreationMode creationMode;
 
@@ -34,7 +36,8 @@ namespace ProjectRogue
                 case ItemCreationMode.Map:
                     map[x, y].AddItem(this);
                     break;
-                default:
+                case ItemCreationMode.Inventory:
+                    //TODO: add inventory 
                     break;
             }
         }
@@ -43,6 +46,12 @@ namespace ProjectRogue
         {
             get
             {
+                if(creationMode == ItemCreationMode.Inventory)
+                {
+                    this.x = gameObjectDatabase[ownerId].x;
+                    this.y = gameObjectDatabase[ownerId].y;
+                }
+
                 List<string> s = new List<string>();
                 s.AddRange(base.saveString);
                 s.Add(((int)creationMode).ToString());
@@ -52,6 +61,8 @@ namespace ProjectRogue
 
         public virtual void PickUp(Creature c)
         {
+            ownerId = c.id;
+            creationMode = ItemCreationMode.Inventory;
             //TODO: "real" items can be picked up, generic if possible
         }
 

@@ -118,6 +118,7 @@ namespace ProjectRogue
                     GameController.map[GameController.player.x, GameController.player.y].creature = null;
                     Player p = GameController.player;
                     GameController.player.DestroyNow();
+                    GraphX.URBLINDNOW();
                     GameController.currentFloor--;
                     p.position = GameController.map.downConnection(s.connection).position;
                     GameController.player = p;
@@ -134,7 +135,7 @@ namespace ProjectRogue
             }
 
 
-            if (keyMapper.HasState("goDown", state))
+            if (keyMapper.HasState("goDown", state)) //todo: set everything to wasvisible
             {
                 DownStairTile s = GameController.map[GameController.player.x, GameController.player.y] as DownStairTile;
                 if (s != null)
@@ -143,6 +144,7 @@ namespace ProjectRogue
                     GameController.map[GameController.player.x, GameController.player.y].creature = null;
                     Player p = GameController.player;
                     GameController.player.DestroyNow();
+                    GraphX.URBLINDNOW();
                     GameController.currentFloor++;
                     p.position = GameController.map.upConnection(s.connection).position;
                     GameController.player = p;

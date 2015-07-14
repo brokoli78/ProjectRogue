@@ -117,7 +117,7 @@ namespace ProjectRogue
         /// <param name="position">the origin of the draw</param>
         /// <param name="color">the color of the text</param>
 
-        public void DrawString(SpriteBatch spriteBatch, string text, Vector2 position, Color color) //TODO: Add wrap text method / class for easy use in GUI (maybe even rewrite sidebar and gamelog)
+        public void DrawString(SpriteBatch spriteBatch, string text, Vector2 position, Color color)
         {
             Vector2 currentPosition = position;
 
